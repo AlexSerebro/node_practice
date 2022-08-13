@@ -1,9 +1,9 @@
-const modelCars = require("../models/Cars");
+const { repositoryCars } = require("../repository");
 
 class Cars {
   async add(req, res) {
     try {
-      const car = await modelCars({ ...req.body });
+      const car = await repositoryCars.save(req.body);
       res.status(201).json({
         message: "Success",
         code: 201,

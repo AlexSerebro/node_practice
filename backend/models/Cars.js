@@ -8,7 +8,10 @@ const carSchema = Schema(
     color: String,
     price: Number,
   },
-  {}
+  {
+    timestamps: true,
+    versionKey: false,
+  }
 );
 
 module.exports = model("car", carSchema);
