@@ -1,5 +1,5 @@
 const { Router } = require("express");
-
+const Cars = require("../controlers/Cars");
 const router = Router();
 
 //getall
@@ -9,12 +9,8 @@ const router = Router();
 //remove
 //localhost:5000/api/v1/cars
 
-router.post("/cars", (req, res) => {
-  res.send("add car");
-});
+router.post("/cars", Cars.add);
 
-router.get("/cars", (req, res) => {
-  res.send("get all cars");
-});
+router.get("/cars", Cars.getAll);
 
 module.exports = router;
