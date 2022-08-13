@@ -1,6 +1,19 @@
+const modelCars = require("../models/Cars");
+
 class Cars {
-  add(req, res) {
-    res.send("add car");
+  async add(req, res) {
+    try {
+      const car = await modelCars({ ...req.body });
+      res.status(201).json({
+        message: "Success",
+        code: 201,
+        data: {
+          car,
+        },
+      });
+    } catch (error) {
+      console.log(error.message.red);
+    }
   }
   getAll(req, res) {
     res.send("get cars");
