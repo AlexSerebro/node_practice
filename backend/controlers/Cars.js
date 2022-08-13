@@ -15,8 +15,20 @@ class Cars {
       console.log(error.message.red);
     }
   }
-  getAll(req, res) {
-    res.send("get cars");
+  async getAll(req, res) {
+    try {
+      const cars = await repositoryCars.getAll();
+      res.status(200).json({
+        message: "Success",
+        code: 200,
+        data: {
+          cars,
+          quantity: cars.length,
+        },
+      });
+    } catch (error) {
+      console.log(error.message.red);
+    }
   }
   getOne(req, res) {
     res.send("one car");

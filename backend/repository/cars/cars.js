@@ -8,5 +8,13 @@ class Cars {
       console.log(error.message.red);
     }
   }
+  async getAll() {
+    try {
+      const cars = await modelCars.find({});
+      return cars;
+    } catch (error) {
+      console.log(error.message.red);
+    }
+  }
 }
 module.exports = new Cars();
