@@ -1,20 +1,22 @@
 const { repositoryCars } = require("../repository");
+const asyncHandler = require("express-async-handler");
 
 class Cars {
-  async add(req, res) {
-    try {
-      const car = await repositoryCars.save(req.body);
-      res.status(201).json({
-        message: "Success",
-        code: 201,
-        data: {
-          car,
-        },
-      });
-    } catch (error) {
-      console.log(error.message.red);
+  add = asyncHandler(async (req, res) => {
+    const car = await repositoryCars.save(req.body);
+    if (!req.body.manufacturer) {
+      res.status(400);
+      throw new Error("Miss manufacturer field");
     }
-  }
+    res.status(201).json({
+      message: "Success",
+      code: 201,
+      data: {
+        car,
+      },
+    });
+  });
+
   async getAll(req, res) {
     try {
       const cars = await repositoryCars.getAll();

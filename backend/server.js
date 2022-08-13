@@ -21,6 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/api/v1", require("./routes/carRouters"));
+app.use(require("./midlewares/errorHandler"));
 
 app.listen(PORT, () => {
   console.log(`server is running on port ${PORT}`.cyan.italic.underline);
