@@ -21,6 +21,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/api/v1", require("./routes/carRouters"));
+app.use("*", (req, res) => {
+  res.status(404).json({ message: "Not found" });
+});
 app.use(require("./midlewares/errorHandler"));
 
 app.listen(PORT, () => {
