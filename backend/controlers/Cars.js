@@ -4,7 +4,6 @@ const asyncHandler = require("express-async-handler");
 class Cars {
   add = asyncHandler(async (req, res) => {
     const car = await repositoryCars.save(req.body);
-    console.log(car);
     if (!req.body.manufacturer) {
       res.status(400);
       throw new Error("Miss manufacturer field");
