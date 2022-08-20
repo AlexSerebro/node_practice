@@ -9,6 +9,11 @@ const userSchema = Schema(
     },
     userPassword: String,
     // userRoles: [],
+    token: {
+      type: String,
+      default: null,
+    },
+    hobbies: [],
   },
   {
     timestamps: true,
