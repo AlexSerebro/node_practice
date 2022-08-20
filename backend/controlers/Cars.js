@@ -17,7 +17,7 @@ class Cars {
     });
   });
 
-  async getAll(req, res) {
+  getAll = asyncHandler(async (req, res) => {
     try {
       const cars = await repositoryCars.getAll();
       res.status(200).json({
@@ -31,16 +31,16 @@ class Cars {
     } catch (error) {
       console.log(error.message.red);
     }
-  }
-  getOne(req, res) {
+  });
+  getOne = asyncHandler(async (req, res) => {
     res.send("one car");
-  }
-  update(req, res) {
+  });
+  update = asyncHandler(async (req, res) => {
     res.send("upd car");
-  }
-  remove(req, res) {
+  });
+  remove = asyncHandler(async (req, res) => {
     res.send("rem car");
-  }
+  });
 }
 
 module.exports = new Cars();
