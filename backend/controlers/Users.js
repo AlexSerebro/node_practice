@@ -1,4 +1,6 @@
 const asyncHandler = require("express-async-handler");
+const Users = require("../models/Users");
+const bcrypt = require("bcrypt");
 
 class User {
   register = asyncHandler(async (req, res) => {
@@ -14,8 +16,31 @@ class User {
       res.status(400);
       throw new Error("Input all fields");
     }
-    console.log(req.body);
+    const oldUser = await Users.findOne({ userEmail });
+    if (oldUser) {
+      res.status(409);
+      throw new Error("User already exist, login plz");
+      //redirect login
+    }
+    const hashPassword = await bcrypt.hash(userPassword, 10);
+
+    const candidate = await Users.create({
+      userName,
+      userEmail,
+      userPassword: hashPassword,
+    });
+    if (!candidate) {
+      res.status(400);
+      throw new Error("regist error");
+    }
+
+    res.status(201).json({
+      status: "success",
+      code: 201,
+      data: candidate,
+    });
   });
+
   login = asyncHandler(async () => {
     console.log("login");
   });
