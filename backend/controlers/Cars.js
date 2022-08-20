@@ -3,11 +3,11 @@ const asyncHandler = require("express-async-handler");
 
 class Cars {
   add = asyncHandler(async (req, res) => {
-    const car = await repositoryCars.save(req.body);
     if (!req.body.manufacturer) {
       res.status(400);
       throw new Error("Miss manufacturer field");
     }
+    const car = await repositoryCars.save(req.body, req.user._id);
     res.status(201).json({
       message: "Success",
       code: 201,
@@ -19,7 +19,7 @@ class Cars {
 
   getAll = asyncHandler(async (req, res) => {
     try {
-      const cars = await repositoryCars.getAll();
+      const cars = await repositoryCars.getAll(req.user._id);
       res.status(200).json({
         message: "Success",
         code: 200,
