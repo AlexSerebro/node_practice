@@ -19,15 +19,18 @@ class Cars {
 
   getAll = asyncHandler(async (req, res) => {
     try {
-      const cars = await repositoryCars.getAll(req.user._id);
-      res.status(200).json({
-        message: "Success",
-        code: 200,
-        data: {
-          cars,
-          quantity: cars.length,
-        },
-      });
+      console.log("get all");
+      // console.log(req.user._id);
+      // const cars = await repositoryCars.getAll(req.user._id);
+
+      // res.status(200).json({
+      //   message: "Success",
+      //   code: 200,
+      //   data: {
+      //     cars,
+      //     quantity: cars.length,
+      //   },
+      // });
     } catch (error) {
       console.log(error.message.red);
     }

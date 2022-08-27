@@ -22,6 +22,7 @@ module.exports = expressAsyncHandler(async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+
     const candidate = await Users.findById(decoded.id).select("-userPassword");
     if (!candidate) {
       res.status(401);

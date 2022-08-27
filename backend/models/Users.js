@@ -8,11 +8,17 @@ const userSchema = Schema(
       unique: true,
     },
     userPassword: String,
-    // userRoles: [],
+
     token: {
       type: String,
       default: null,
     },
+    userRoles: [
+      {
+        type: String,
+        ref: "Role",
+      },
+    ],
     hobbies: [],
   },
   {

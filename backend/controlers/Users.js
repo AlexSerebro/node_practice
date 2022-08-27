@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const Users = require("../models/Users");
+const Roles = require("../models/Roles");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -24,11 +25,15 @@ class UserControler {
       //redirect login
     }
     const hashPassword = await bcrypt.hash(userPassword, 10);
+    const userRole = await Roles.findOne({ value: "ADMIN" });
+
+    // console.log(userRole);
 
     const candidate = await Users.create({
       userName,
       userEmail,
       userPassword: hashPassword,
+      userRoles: [userRole.value],
     });
     if (!candidate) {
       res.status(400);
@@ -56,6 +61,7 @@ class UserControler {
       throw new Error("Input all fields");
     }
     const candidate = await Users.findOne({ userEmail });
+    // console.log(candidate);
     if (!candidate) {
       return res.status(403).json({
         message: "Plz register",
@@ -72,6 +78,7 @@ class UserControler {
     }
     const payload = {
       id: candidate._id,
+      roles: candidate.userRoles,
     };
 
     candidate.token = this.generateToken(payload);
